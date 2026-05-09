@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query("SELECT e FROM Event e WHERE e.startDate > :now ORDER BY e.startDate")
+    @Query("SELECT e FROM Event e WHERE e.startTime > :now ORDER BY e.startTime")
     List<Event> findUpcoming(@Param("now") LocalDate now);
 }

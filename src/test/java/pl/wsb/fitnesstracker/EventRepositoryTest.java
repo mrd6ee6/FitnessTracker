@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pl.wsb.fitnesstracker.event.Event;
 import pl.wsb.fitnesstracker.event.EventRepository;
-import pl.wsb.fitnesstracker.event.EventRepositoryImpl;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -27,10 +26,15 @@ class EventRepositoryTest {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private EventRepository eventRepository;
+
     @Test
     void shouldHaveEventTable() {
-        EventRepositoryImpl tego = new EventRepositoryImpl();
-        List<Event> events = tego.findUpcoming(LocalDate.now());
+        eventRepository.saveAndFlush(new Event(null, "Test Event", "desc",
+                LocalDate.now().plusDays(1), LocalDate.now().plusDays(2),
+                "Poland", "Warsaw"));
+        List<Event> events = eventRepository.findUpcoming(LocalDate.now());
         System.out.println("Nadchodzące eventy: " + events.size());
         assertThat(events).isNotEmpty();
     }
