@@ -6,6 +6,7 @@ import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserDto;
 import pl.wsb.fitnesstracker.user.api.UserProvider;
 import pl.wsb.fitnesstracker.user.api.UserService;
+import pl.wsb.fitnesstracker.user.internal.UserRepository;
 
 import java.util.List;
 
@@ -24,6 +25,16 @@ class UserController {
 
     private final UserMapper userMapper;
 
+    public UserController() {
+        UserRepository userRepository = new UserRepository() {
+        }
+        UserServiceImpl userServiceImpl = new UserServiceImpl()
+        this.userService = userService;
+        this.userProvider = userService;
+        this.userMapper = ;
+        this.repository = repository;
+    }
+
     @PostMapping
     public UserDto addUser(@RequestBody UserDto userDto) throws InterruptedException {
 
@@ -41,5 +52,14 @@ class UserController {
                 .toList();
     }
 
+    private final UserRepository repository;
 
+    UserController(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    @GetMapping("/users")
+    List<User> all() {
+        return repository.findAll();
+    }
 }

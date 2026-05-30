@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.email LIKE CONCAT('%@', :domain)")
     List<User> findByEmailDomain(@Param("domain") String domain);
 
+    @Query("SELECT u.id, u.firstName, u.lastName FROM User u")
+    List<User> findAll();
 }
