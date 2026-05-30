@@ -4,12 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.wsb.fitnesstracker.user.api.User;
-import pl.wsb.fitnesstracker.user.api.UserDto;
-import pl.wsb.fitnesstracker.user.api.UserEmailDto;
-import pl.wsb.fitnesstracker.user.api.UserNotFoundException;
-import pl.wsb.fitnesstracker.user.api.UserProvider;
-import pl.wsb.fitnesstracker.user.api.UserService;
+import pl.wsb.fitnesstracker.user.api.*;
 
 import java.util.List;
 
@@ -143,10 +138,10 @@ class UserController {
      * @return list of all users; empty list if none exist
      */
     @GetMapping
-    public List<UserDto> getUsers() throws InterruptedException {
+    public List<SimpleUserDto> getUsers() throws InterruptedException {
 
        return this.userProvider.findAllUsers().stream()
-                .map(this.userMapper::toUserDto)
+                .map(this.userMapper::toSimpleUserDto)
                 .toList();
     }
 

@@ -39,7 +39,7 @@
               "pm.test('Each user has required fields', () => {",
               "    const body = pm.response.json();",
               "    body.forEach(user => {",
-              "        pm.expect(user).to.have.all.keys('id', 'firstName', 'lastName', 'birthdate', 'email');",
+              "        pm.expect(user).to.have.all.keys('id', 'firstName', 'lastName');",
               "    });",
               "});",
               "// Save first user id for subsequent requests",
