@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.wsb.fitnesstracker.user.api.User;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.email LIKE CONCAT('%@', :domain)")
     List<User> findByEmailDomain(@Param("domain") String domain);
 
-    @Query("SELECT u.id, u.firstName, u.lastName FROM User u")
-    List<User> findAll();
+    List<User> findByEmailContainingIgnoreCase(String email);
+
+    List<User> findByBirthdateBefore(LocalDate date);
 }
